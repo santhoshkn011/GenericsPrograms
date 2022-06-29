@@ -1,11 +1,9 @@
 /*
-Extend the max method to take more than three parameters
--Use Options and Sorting
+Extend the max method to also print the max to std out using Generic Method
  */
 package com.bridgelabz;
 
 import java.util.Arrays;
-
 //Generic Class
 public class MaxOfValues <E extends Comparable<E>>{
     private E[] eArray; //declaring array
@@ -13,6 +11,7 @@ public class MaxOfValues <E extends Comparable<E>>{
     MaxOfValues(E[] eArray) {
         this.eArray = eArray;
     }
+    //method to display the sorted array
     public void display() {
         System.out.println("\nBefore Sorting:");
         for(E element : eArray) {
@@ -26,9 +25,17 @@ public class MaxOfValues <E extends Comparable<E>>{
     }
     //Generics method to find max value
     public void findMaxValue() {
-        int lengthOfArray = eArray.length; //local variable
-        Arrays.sort(eArray); //sorting the array
-        System.out.println(eArray[lengthOfArray -1]); //after sorting the last element will be the max
+        for(int i=0; i<eArray.length-1; i++) {
+            if(eArray[i].compareTo(eArray[i+1]) > 0) {
+                eArray[i+1] = eArray[i];
+            }
+        }
+//        System.out.println(eArray[eArray.length - 1]);
+    }
+    //Method to print the max value
+    void printMax() {
+//        Arrays.sort(eArray); //sorting the array
+        System.out.println(eArray[eArray.length - 1]);  //max value
     }
     //main method starts
     public static void main(String[] args) {
@@ -41,8 +48,11 @@ public class MaxOfValues <E extends Comparable<E>>{
         new MaxOfValues(floatValue).display(); System.out.println();
         new MaxOfValues(stringValue).display(); System.out.println();
         //printing the max values
-        System.out.print("\nThe maximum of integers: " ); new MaxOfValues(integerValue).findMaxValue();
-        System.out.print("\nThe maximum of floats: "); new MaxOfValues(floatValue).findMaxValue();
-        System.out.print("\nThe maximum of strings: " ); new MaxOfValues(stringValue).findMaxValue();
+        new MaxOfValues(integerValue).findMaxValue();
+        new MaxOfValues(floatValue).findMaxValue();
+        new MaxOfValues(stringValue).findMaxValue();
+        System.out.print("\nThe maximum of strings: " ); new MaxOfValues(stringValue).printMax();
+        System.out.print("\nThe maximum of integers: " ); new MaxOfValues(integerValue).printMax();
+        System.out.print("\nThe maximum of floats: "); new MaxOfValues(floatValue).printMax();
     }
 }
